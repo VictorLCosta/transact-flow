@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  password String
+  projects Project[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id String @id @default(uuid())
+  name String
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  importJobs ImportJob[]
+  transactions Transaction[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  id String @id @default(uuid())
+  amount Decimal @db.Decimal(14, 2)
+  currency String
+  description String?
+  project Project @relation(fields: [projectId], references: [id])
+  projectId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ImportJob {
+  id String @id @default(uuid())
+  fileName String
+  status String
+  totalLines Int
+  processedLines Int @default(0)
+  errorLines Int @default(0)
+  completedAt DateTime?
+  project Project @relation(fields: [projectId], references: [id])
+  projectId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  importErrors ImportError[]
+}
+
+model ImportError {
+  id String @id @default(uuid())
+  lineText String
+  lineNumber Int
+  errorMessage String
+  importJob ImportJob @relation(fields: [importJobId], references: [id])
+  importJobId String
+  createdAt DateTime @default(now())
+}
