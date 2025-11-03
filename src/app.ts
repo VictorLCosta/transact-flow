@@ -4,6 +4,7 @@ import morgan from "config/morgan";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
+import { errorConverter, errorHandler } from "middlewares/error";
 import xss from "middlewares/xss";
 
 const app = express();
@@ -17,11 +18,16 @@ app.use(helmet());
 
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use(xss());
 
 app.use(compression());
 
 app.use(cors());
 app.options("/{*any}", cors());
+
+app.use(errorConverter);
+app.use(errorHandler);
 
 export default app;
