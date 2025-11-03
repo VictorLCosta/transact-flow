@@ -4,61 +4,80 @@ generator client {
 
 datasource db {
   provider = "sqlserver"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id String @id @default(uuid())
-  email String @unique
-  password String
-  projects Project[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("users")
 }
 
 model Project {
-  id String @id @default(uuid())
-  name String
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  importJobs ImportJob[]
+  id           String        @id @default(uuid())
+  name         String
+  user         User          @relation(fields: [userId], references: [id])
+  userId       String
+  importJobs   ImportJob[]
   transactions Transaction[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
-model Transaction {
-  id String @id @default(uuid())
-  amount Decimal @db.Decimal(14, 2)
-  currency String
-  description String?
-  project Project @relation(fields: [projectId], references: [id])
-  projectId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  @@index([name])
+
+  @@map("projects")
 }
 
 model ImportJob {
-  id String @id @default(uuid())
-  fileName String
-  status String
-  totalLines Int
-  processedLines Int @default(0)
-  errorLines Int @default(0)
-  completedAt DateTime?
-  project Project @relation(fields: [projectId], references: [id])
-  projectId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  importErrors ImportError[]
+  id             String        @id @default(uuid())
+  fileName       String
+  status         String
+  totalLines     Int
+  processedLines Int           @default(0)
+  errorLines     Int           @default(0)
+  completedAt    DateTime?
+  project        Project       @relation(fields: [projectId], references: [id])
+  projectId      String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  importErrors   ImportError[]
+  transactions   Transaction[]
+
+  @@index([fileName])
+
+  @@index([projectId])
+
+  @@map("import_jobs")
 }
 
 model ImportError {
-  id String @id @default(uuid())
-  lineText String
-  lineNumber Int
+  id           String    @id @default(uuid())
+  lineText     String
+  lineNumber   Int
   errorMessage String
-  importJob ImportJob @relation(fields: [importJobId], references: [id])
+  importJob    ImportJob @relation(fields: [importJobId], references: [id])
+  importJobId  String
+  createdAt    DateTime  @default(now())
+
+  @@map("import_errors")
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  amount      Decimal  @db.Decimal(14, 2)
+  currency    String
+  description String?
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   String
+  job         ImportJob @relation(fields: [importJobId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   importJobId String
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("transactions")
 }
