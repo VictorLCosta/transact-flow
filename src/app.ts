@@ -1,11 +1,13 @@
 import compression from "compression";
 import config from "config";
 import morgan from "config/morgan";
+import { jwtStrategy } from "config/passport";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import { errorConverter, errorHandler } from "middlewares/error";
 import xss from "middlewares/xss";
+import passport from "passport";
 import routes from "routes";
 
 const app = express();
@@ -27,6 +29,9 @@ app.use(compression());
 
 app.use(cors());
 app.options("/{*any}", cors());
+
+app.use(passport.initialize());
+passport.use("jwt", jwtStrategy);
 
 app.use("/", routes);
 
