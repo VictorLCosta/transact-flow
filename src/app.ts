@@ -6,6 +6,7 @@ import express from "express";
 import helmet from "helmet";
 import { errorConverter, errorHandler } from "middlewares/error";
 import xss from "middlewares/xss";
+import routes from "routes";
 
 const app = express();
 
@@ -26,6 +27,8 @@ app.use(compression());
 
 app.use(cors());
 app.options("/{*any}", cors());
+
+app.use("/", routes);
 
 app.use(errorConverter);
 app.use(errorHandler);
