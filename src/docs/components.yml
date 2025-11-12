@@ -1,0 +1,29 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+          
+  responses:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

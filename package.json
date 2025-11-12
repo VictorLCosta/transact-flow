@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "API for managing financial transactions with user authentication and transaction flow control.",
   "main": "src/server.ts",
+  "repository": "",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
@@ -39,6 +40,8 @@
     "@types/node": "^24.9.2",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "@types/xss-filters": "^1.2.0",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
