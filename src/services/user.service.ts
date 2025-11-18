@@ -1,6 +1,7 @@
 import prisma from "client";
 import httpStatus from "http-status";
 import ApiError from "utils/ApiError";
+import { encryptPassword } from "utils/encryption";
 
 import type { User } from "@prisma/client";
 
@@ -12,7 +13,7 @@ const createUser = async (email: string, password: string): Promise<User> => {
   return prisma.user.create({
     data: {
       email,
-      password,
+      password: await encryptPassword(password),
     },
   });
 };
