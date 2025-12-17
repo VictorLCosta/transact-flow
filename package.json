@@ -8,13 +8,16 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --config nodemon.json src/server.ts"
+    "dev": "nodemon --config nodemon.json src/server.ts",
+    "seed": "tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "Victor Lima Costa",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "@prisma/client": "^6.18.0",
+    "@prisma/adapter-mssql": "^7.2.0",
+    "@prisma/client": "^6.19.1",
     "bcryptjs": "^3.0.3",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
@@ -42,7 +45,8 @@
     "@types/express": "^5.0.5",
     "@types/helmet": "^0.0.48",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.9.2",
+    "@types/mssql": "^9.1.8",
+    "@types/node": "^24.10.4",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
     "@types/swagger-jsdoc": "^6.0.4",
@@ -55,11 +59,12 @@
     "globals": "^16.4.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
-    "prisma": "^6.18.0",
+    "prisma": "^7.2.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2"
   }
