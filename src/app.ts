@@ -2,6 +2,7 @@ import compression from "compression";
 import config from "config";
 import morgan from "config/morgan";
 import { jwtStrategy } from "config/passport";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
@@ -22,6 +23,8 @@ app.use(helmet());
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 app.use(xss());
 
