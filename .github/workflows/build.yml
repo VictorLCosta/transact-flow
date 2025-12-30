@@ -1,0 +1,22 @@
+name: Build Project
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone Code
+        uses: actions/checkout@v4
+
+      - name: Install Node Env
+        uses: actions/setup-node@v6.1.0
+        with:
+          node-version: 22.20.0
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Build
+        run: npm run build
