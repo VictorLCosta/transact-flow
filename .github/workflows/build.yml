@@ -16,7 +16,10 @@ jobs:
           node-version: 22.20.0
 
       - name: Install Dependencies
-        run: npm i
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
 
       - name: Build
         run: npm run build
