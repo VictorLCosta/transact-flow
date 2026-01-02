@@ -4,7 +4,7 @@ import catchAsync from "utils/catch-async";
 const loginWithEmailAndPassword = catchAsync(async (req, res) => {
   const { email, password } = req.body;
   const user = await authService.loginWithEmailAndPassword(email, password);
-  const tokens = tokenService.generateAuthTokens(user);
+  const tokens = tokenService.generateAuthTokens({ id: user.id });
 
   res.send({ user, tokens });
 });
