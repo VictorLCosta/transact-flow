@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import config from "config";
 import logger from "config/logger";
 import httpStatus from "http-status";
@@ -10,7 +10,7 @@ export const errorConverter: ErrorRequestHandler = (err, req, res, next) => {
   let error = err;
   if (!(error instanceof ApiError)) {
     const statusCode =
-      error.statusCode || error instanceof Prisma.PrismaClientKnownRequestError
+      error.statusCode || error instanceof PrismaClientKnownRequestError
         ? httpStatus.BAD_REQUEST
         : httpStatus.INTERNAL_SERVER_ERROR;
     const message = error.message || httpStatus[statusCode];

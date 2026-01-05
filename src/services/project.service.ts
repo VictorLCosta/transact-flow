@@ -1,8 +1,8 @@
-import prisma from "client";
+import { prisma } from "client";
 import httpStatus from "http-status";
 import ApiError from "utils/ApiError";
 
-import type { Prisma, Project } from "@prisma/client";
+import type { Project, Prisma } from "generated/prisma/client";
 
 const getProjects = async <Key extends keyof Project>(
   filter: object,

@@ -4,8 +4,8 @@ import httpStatus from "http-status";
 import passport from "passport";
 import ApiError from "utils/ApiError";
 
-import type { User } from "@prisma/client";
 import type { Request, Response, NextFunction } from "express";
+import type { User } from "generated/prisma/client";
 
 const verifyCallback =
   (req: any, resolve: (value?: unknown) => void, reject: (reason?: unknown) => void, requiredRights: string[]) =>

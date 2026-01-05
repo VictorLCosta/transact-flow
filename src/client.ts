@@ -1,7 +1,7 @@
 import { PrismaMssql } from "@prisma/adapter-mssql";
-import { PrismaClient } from "@prisma/client";
 
 import config from "./config";
+import { PrismaClient } from "./generated/prisma/client";
 
 interface CustomNodeJsGlobal {
   prisma: PrismaClient;
@@ -14,4 +14,4 @@ const prisma = global.prisma || new PrismaClient({ adapter });
 
 if (config.NODE_ENV === "development") global.prisma = prisma;
 
-export default prisma;
+export { prisma };

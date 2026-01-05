@@ -4,7 +4,7 @@ import exclude from "utils/exclude";
 
 import userService from "./user.service";
 
-import type { User } from "@prisma/client";
+import type { User } from "generated/prisma/client";
 
 const loginWithEmailAndPassword = async (email: string, password: string): Promise<Omit<User, "password">> => {
   const user = await userService.getUserByEmail(email);

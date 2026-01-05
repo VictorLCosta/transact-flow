@@ -1,9 +1,9 @@
-import prisma from "client";
+import { prisma } from "client";
 import httpStatus from "http-status";
 import ApiError from "utils/ApiError";
 import { encryptPassword } from "utils/encryption";
 
-import type { User } from "@prisma/client";
+import type { User } from "generated/prisma/client";
 
 const createUser = async (email: string, password: string): Promise<User> => {
   if (await getUserByEmail(email)) {

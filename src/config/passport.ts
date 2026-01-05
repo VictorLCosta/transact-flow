@@ -1,4 +1,4 @@
-import prisma from "client";
+import { prisma } from "client";
 import config from "config";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 
