@@ -1,7 +1,7 @@
 import { PrismaMssql } from "@prisma/adapter-mssql";
 
-import config from "./config";
-import { PrismaClient } from "./generated/prisma/client";
+import config from "@/config";
+import { PrismaClient } from "@/generated/prisma/client";
 
 interface CustomNodeJsGlobal {
   prisma: PrismaClient;

@@ -8,9 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.js'
-export type * from './models/Project.js'
-export type * from './models/ImportJob.js'
-export type * from './models/ImportError.js'
-export type * from './models/Transaction.js'
-export type * from './commonInputTypes.js'
+export type * from './models/User'
+export type * from './models/Project'
+export type * from './models/ImportJob'
+export type * from './models/ImportError'
+export type * from './models/Transaction'
+export type * from './commonInputTypes'

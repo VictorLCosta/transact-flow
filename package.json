@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "pm2 start ecosystem.config.json --env production --no-daemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --config nodemon.json src/server.ts",
+    "dev": "nodemon --config nodemon.json",
     "seed": "tsx prisma/seed.ts"
   },
   "keywords": [],
@@ -17,7 +17,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/adapter-mssql": "^7.2.0",
-    "@prisma/client": "^6.19.1",
+    "@prisma/client": "^7.2.0",
     "bcryptjs": "^3.0.3",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
@@ -63,8 +63,6 @@
     "prisma": "^7.2.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2"
