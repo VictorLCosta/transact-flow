@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - sqlserver
+    networks:
+      - node-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    restart: always
+    container_name: sql1
+    environment:
+      MSSQL_SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+      HOSTNAME: "sqlserver1"
+    ports:
+      - "5433:1433"
+    volumes:
+      - mssql:/var/opt/mssql
+    networks:
+      - node-network
+
+volumes:
+  mssql:
+
+networks:
+  node-network:
+    driver: bridge

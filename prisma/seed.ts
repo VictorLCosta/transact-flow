@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 
-import prisma from "../src/client";
+import { prisma } from "../src/client";
 import { encryptPassword } from "../src/utils/encryption";
 
 async function main() {
   const admin = await prisma.user.upsert({
-    where: { email: "victorlc2019prisma.io" },
+    where: { email: "victorlc2019@prisma.io" },
     update: {},
     create: {
-      email: "victorlc2019prisma.io",
+      email: "victorlc2019@prisma.io",
       password: await encryptPassword("senha123"),
     },
   });

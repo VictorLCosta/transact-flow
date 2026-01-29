@@ -5,7 +5,7 @@ import authValidation from "validations/auth.validation";
 
 const router = express.Router();
 
-router.post("./login", validate(authValidation.login), authController.loginWithEmailAndPassword);
+router.post("/login", validate(authValidation.login), authController.loginWithEmailAndPassword);
 
 export default router;
 
