@@ -3,6 +3,7 @@ import express from "express";
 
 import authRoutes from "./auth.route";
 import docsRoute from "./docs.route";
+import jobRoutes from "./job.route";
 import projectRoutes from "./project.route";
 import userRoutes from "./user.route";
 
@@ -20,6 +21,10 @@ const defaultRoutes = [
   {
     path: "/projects",
     route: projectRoutes,
+  },
+  {
+    path: "/jobs",
+    route: jobRoutes,
   },
 ];
 

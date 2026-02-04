@@ -10,7 +10,7 @@ interface CustomNodeJsGlobal {
 declare const global: CustomNodeJsGlobal & typeof globalThis;
 
 const adapter = new PrismaMssql(config.DATABASE_URL);
-const prisma = global.prisma || new PrismaClient({ adapter });
+const prisma = global.prisma || new PrismaClient({ adapter, log: ["query", "info", "warn", "error"] });
 
 if (config.NODE_ENV === "development") global.prisma = prisma;
 

@@ -17,19 +17,19 @@ const getProjects = {
 
 const getProject = {
   params: Joi.object().keys({
-    id: Joi.string().hex().required(),
+    id: Joi.string().guid().required(),
   }),
 };
 
 const deleteProject = {
   params: Joi.object().keys({
-    id: Joi.string().hex().required(),
+    id: Joi.string().guid().required(),
   }),
 };
 
 const updateProject = {
   params: Joi.object().keys({
-    id: Joi.string().hex().required(),
+    id: Joi.string().guid().required(),
   }),
   body: Joi.object().keys({
     name: Joi.string().optional(),

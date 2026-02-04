@@ -12,9 +12,9 @@ const getProjects = async <Key extends keyof Project>(
     sortBy?: string;
     sortType?: "asc" | "desc";
   },
-  keys: Key[] = ["id", "name", "createdAt", "projectId"] as Key[],
+  keys: Key[] = ["id", "name", "createdAt"] as Key[],
 ): Promise<Pick<Project, Key>[]> => {
-  const where = { ...filter };
+  const where = Object.keys(filter).length === 0 ? undefined : { ...filter };
   const page = options.page ?? 1;
   const limit = options.limit ?? 10;
   const sortBy = options.sortBy;
@@ -23,8 +23,8 @@ const getProjects = async <Key extends keyof Project>(
   const projects = await prisma.project.findMany({
     where,
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
-    skip: page * limit,
-    take: limit,
+    skip: (Number(page) - 1) * Number(limit),
+    take: Number(limit),
     orderBy: sortBy ? { [sortBy]: sortType } : undefined,
   });
 
@@ -33,7 +33,7 @@ const getProjects = async <Key extends keyof Project>(
 
 const getProjectById = async <Key extends keyof Project>(
   projectId: string,
-  keys: Key[] = ["id", "name", "createdAt", "projectId"] as Key[],
+  keys: Key[] = ["id", "name", "createdAt"] as Key[],
 ): Promise<Pick<Project, Key> | null> => {
   return prisma.project.findUnique({
     where: { id: projectId },

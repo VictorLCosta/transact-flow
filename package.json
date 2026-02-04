@@ -16,12 +16,14 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@fastify/busboy": "^3.2.0",
     "@prisma/adapter-mssql": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "bcryptjs": "^3.0.3",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
@@ -35,7 +37,8 @@
     "passport-jwt": "^4.0.1",
     "pm2": "^6.0.14",
     "winston": "^3.18.3",
-    "xss-filters": "^1.2.7"
+    "xss-filters": "^1.2.7",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.2",
