@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { prisma } from "@/client";
+import { getIo } from "@/socket";
 
 import processCsvTransactions from "./csv-import";
 
@@ -34,7 +35,20 @@ async function processCsvImport(jobId: string, projectId: string, filePath: stri
     data: { status: "processing" },
   });
 
-  await processCsvTransactions(jobId, projectId, filePath);
+  const io = getIo();
+
+  // fetch job + project -> userId to emit to the right room
+  const job = await prisma.importJob.findUnique({
+    where: { id: jobId },
+    include: { project: true },
+  });
+  const userId = job?.project?.userId;
+
+  if (io && userId) {
+    io.to(`user:${userId}`).emit("import:started", { jobId });
+  }
+
+  await processCsvTransactions(jobId, projectId, filePath, userId);
 
   await prisma.importJob.update({
     where: { id: jobId },
@@ -44,6 +58,10 @@ async function processCsvImport(jobId: string, projectId: string, filePath: stri
       completedAt: new Date(),
     },
   });
+
+  if (io && job?.project?.userId) {
+    io.to(`user:${job.project.userId}`).emit("import:completed", { jobId });
+  }
 }
 
 export function enqueueImport(jobId: string, projectId: string): void {
