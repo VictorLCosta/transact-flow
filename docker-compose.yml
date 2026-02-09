@@ -9,6 +9,7 @@ services:
       - "3000:3000"
     depends_on:
       - sqlserver
+      - redis
     networks:
       - node-network
 
@@ -27,8 +28,19 @@ services:
     networks:
       - node-network
 
+  redis:
+    image: redis:latest
+    container_name: redis1
+    ports:
+      - "6379:6379"
+    networks:
+      - node-network
+    volumes:
+      - redis-data:/data
+
 volumes:
   mssql:
+  redis-data:
 
 networks:
   node-network:
