@@ -34,12 +34,12 @@ class RedisNoOp {
     return null;
   }
 
-  async set(key: string, value: string, mode?: string, duration?: number): Promise<"OK" | null> {
+  async set(key: string, _value: string, _mode?: string, _duration?: number): Promise<"OK" | null> {
     this.logNoOp(`set(${key})`);
     return null;
   }
 
-  async setex(key: string, seconds: number, value: string): Promise<"OK" | null> {
+  async setex(key: string, seconds: number, _value: string): Promise<"OK" | null> {
     this.logNoOp(`setex(${key}, ${seconds})`);
     return null;
   }
@@ -54,17 +54,17 @@ class RedisNoOp {
     return keys.map(() => null);
   }
 
-  async mset(...args: string[]): Promise<"OK" | null> {
+  async mset(..._args: string[]): Promise<"OK" | null> {
     this.logNoOp(`mset(...)`);
     return null;
   }
 
-  async sadd(key: string, ...members: string[]): Promise<number> {
+  async sadd(key: string, ..._members: string[]): Promise<number> {
     this.logNoOp(`sadd(${key})`);
     return 0;
   }
 
-  async srem(key: string, ...members: string[]): Promise<number> {
+  async srem(key: string, ..._members: string[]): Promise<number> {
     this.logNoOp(`srem(${key})`);
     return 0;
   }

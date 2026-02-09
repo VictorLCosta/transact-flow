@@ -127,8 +127,6 @@ class CacheInvalidation extends EventEmitter {
    */
   private async invalidateProjectsList(userId: string): Promise<void> {
     try {
-      const { projectsListKey } = await import("@/cache/keys");
-
       logger.info(`[Cache Invalidation] Projects list should be refreshed for user ${userId}`);
     } catch (error) {
       logger.error(`[Cache Invalidation] Error invalidating projects list: ${error}`);
@@ -140,7 +138,7 @@ class CacheInvalidation extends EventEmitter {
    * @param projectId - Project ID
    * @param userId - User ID (to invalidate user's project list)
    */
-  private async invalidateProject(projectId: string, userId: string): Promise<void> {
+  private async invalidateProject(projectId: string, _userId: string): Promise<void> {
     try {
       const { projectByIdKey, projectJobsKey } = await import("@/cache/keys");
       await Promise.all([cacheService.del(projectByIdKey(projectId)), cacheService.del(projectJobsKey(projectId))]);
@@ -155,7 +153,7 @@ class CacheInvalidation extends EventEmitter {
    * @param projectId - Project ID
    * @param userId - User ID
    */
-  private async invalidateProjectCascade(projectId: string, userId: string): Promise<void> {
+  private async invalidateProjectCascade(projectId: string, _userId: string): Promise<void> {
     try {
       const { projectByIdKey, projectJobsKey } = await import("@/cache/keys");
       await Promise.all([cacheService.del(projectByIdKey(projectId)), cacheService.del(projectJobsKey(projectId))]);
@@ -170,7 +168,7 @@ class CacheInvalidation extends EventEmitter {
    * @param jobId - Job ID
    * @param projectId - Project ID
    */
-  private async invalidateJob(jobId: string, projectId: string): Promise<void> {
+  private async invalidateJob(jobId: string, _projectId: string): Promise<void> {
     try {
       const { jobByIdKey } = await import("@/cache/keys");
       await cacheService.del(jobByIdKey(jobId));

@@ -1,15 +1,15 @@
 import { prisma } from "client";
+import config from "config";
 import httpStatus from "http-status";
 import ApiError from "utils/ApiError";
 import { encryptPassword } from "utils/encryption";
-import config from "config";
-
-import type { User } from "generated/prisma/client";
 
 import { cacheService } from "@/cache/index";
-import { userByIdKey, userByEmailKey } from "@/cache/keys";
 import { cacheInvalidation, InvalidationEvent } from "@/cache/invalidation";
+import { userByIdKey, userByEmailKey } from "@/cache/keys";
 import logger from "@/config/logger";
+
+import type { User } from "generated/prisma/client";
 
 const createUser = async (email: string, password: string): Promise<User> => {
   if (await getUserByEmail(email)) {
@@ -65,10 +65,10 @@ const getUserById = async <Key extends keyof User>(
     return cachedUser;
   }
 
-  const user = await prisma.user.findUnique({
+  const user = (await prisma.user.findUnique({
     where: { id },
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
-  }) as Promise<Pick<User, Key> | null>;
+  })) as Promise<Pick<User, Key> | null>;
 
   // Cache the result if found
   if (user) {

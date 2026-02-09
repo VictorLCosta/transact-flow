@@ -8,7 +8,7 @@ import type { Request, Response, NextFunction } from "express";
 import type { User } from "generated/prisma/client";
 
 const verifyCallback =
-  (req: any, resolve: (value?: unknown) => void, reject: (reason?: unknown) => void, requiredRights: string[]) =>
+  (req: any, resolve: (value?: unknown) => void, reject: (reason?: unknown) => void, _requiredRights: string[]) =>
   async (err: unknown, user: User | false, info: unknown) => {
     if (err || info || !user) {
       return reject(new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate"));
