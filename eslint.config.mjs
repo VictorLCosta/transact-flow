@@ -10,6 +10,7 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: { js },
     extends: ["js/recommended"],
+    ignores: ["node_modules/", "dist/", "build/"],
     languageOptions: { globals: globals.browser },
     rules: {
       "no-console": "warn",
