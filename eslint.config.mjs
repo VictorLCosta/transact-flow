@@ -7,10 +7,12 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
+    ignores: ["node_modules/", "dist/", "build/", "src/generated/**", "prisma/generated/**"],
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: { js },
     extends: ["js/recommended"],
-    ignores: ["node_modules/", "dist/", "build/", "generated/**"],
     languageOptions: { globals: globals.browser },
     rules: {
       "no-console": "warn",
